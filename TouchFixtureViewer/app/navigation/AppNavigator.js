@@ -1,29 +1,43 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { enableScreens } from 'react-native-screens';
-import { createNativeStackNavigator } from 'react-native-screens/native-stack';
-import BusinessScreen from '../screens/BusinessScreen';
-import BusinessDetailsScreen from '../screens/BusinessDetailsScreen';
-import PaymentScreen from '../screens/PaymentScreen';
-import routes from '../navigation/routes';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Icon } from 'react-native-elements';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import FixtureScreen from "../screens/FixtureScreen";
+import colors from '../config/colors';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const AppNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name={routes.Business}
-      component={BusinessScreen}
-      options={{ headerShown: false }}
+  <Tab.Navigator>
+    <Tab.Screen
+      name="Men Fixture"
+      component={FixtureScreen}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <Icon
+            name="chess-king"
+            type="material-community"
+            color={colors.primary}
+            size={size}
+          />
+        ),
+      }}
     />
-    <Stack.Screen
-      name={routes.BusinessDetails}
-      component={BusinessDetailsScreen}
-      options={{ headerShown: false }}
+    <Tab.Screen
+      name="Mixed Fixture"
+      component={FixtureScreen}
+      options={{
+        tabBarIcon: ({ color, size }) => (
+          <Icon
+            name="chess-queen"
+            type="material-community"
+            color={colors.primary}
+            size={size}
+          />
+        ),
+      }}
     />
-    <Stack.Screen name={routes.Payments} component={PaymentScreen} />
-  </Stack.Navigator>
+  </Tab.Navigator>
 );
 
 export default AppNavigator;

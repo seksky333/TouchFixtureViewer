@@ -109,12 +109,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   topContainer: {
-    backgroundColor: colors.primary,
     alignItems: "center",
-    flex: .1,
   },
   contentContainer: {
-    flex: .9,
+    flex: 1,
     paddingLeft: 20,
     paddingLeft: 20,
     paddingRight: 20,
@@ -123,7 +121,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light,
   },
   fixtureInfo_text: {
-    color: colors.white,
+    color: colors.medium,
     fontSize: 18,
     fontWeight: "bold",
   }

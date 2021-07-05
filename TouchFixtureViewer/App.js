@@ -5,24 +5,37 @@
  * @format
  * @flow strict-local
  */
-
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import 'react-native-gesture-handler';
+import React, {useEffect} from 'react';
+import { StyleSheet, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import navigationTheme from './app/navigation/navigationTheme';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import AppNavigator from './app/navigation/AppNavigator';
 import { enableScreens } from 'react-native-screens';
+const momentTimeZone = require('moment-timezone');
+momentTimeZone.tz.setDefault('Australia/Melbourne');
 import FixtureScreen from "./app/screens/FixtureScreen";
-
+import colors from './app/config/colors';
 
 enableScreens();
 
+
 export default function App() {
+
+
+
+  useEffect(() => { 
+    StatusBar.setBarStyle('light-content', true);
+    StatusBar.setBackgroundColor(colors.primary);
+   }, []);
+
   return (
-    <>
-      <NavigationContainer theme={navigationTheme}>
-        <FixtureScreen></FixtureScreen>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <AppNavigator></AppNavigator>
       </NavigationContainer>
-    </>
+    </SafeAreaProvider>
   );
 }
 

@@ -10,17 +10,18 @@ function Fixture({ fixture, onPress }) {
             <View style={styles.container}>
                 <View style={styles.upperContainer}>
                     <View style={styles.item1}>
-                        <Team />
+                        <Team teamName={fixture.homeTeam.name} />
                     </View>
                     <View style={styles.item2}>
                         <Text style={styles.vs_text}>VS</Text>
                     </View>
                     <View style={styles.item3}>
-                        <Team />
+                        <Team teamName={fixture.awayTeam.name} />
                     </View>
                 </View>
                 <View style={styles.lowerContainer}>
-                    <Text style={styles.location_text}>Wentworth Park - Field 2</Text>
+                    <Text style={styles.game_time}>{fixture.gameDateTimeObject.gameTime}</Text>
+                    <Text style={styles.location_text}>{fixture.gameVenue}</Text>
                 </View>
             </View>
 
@@ -32,32 +33,35 @@ function Fixture({ fixture, onPress }) {
 const styles = StyleSheet.create({
     container: {
         borderRadius: 25,
-        height: 150,
+        height: 200,
         width: '100%',
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: colors.green,
+        backgroundColor: colors.secondary,
         marginTop: 8,
         marginBottom: 8,
+        borderWidth: .5,
+        borderColor: colors.secondary_border,
+
     },
     upperContainer: {
         height: 125,
         width: '100%',
-        flex: .8,
+        flex: .7,
         flexDirection: 'row',
-        backgroundColor: 'blue',
+        // backgroundColor: 'blue',
     },
     lowerContainer: {
-        flex: .2,
-        backgroundColor: 'green',
+        flex: .3,
+        // backgroundColor: 'green',
     },
     item1: {
         flex: .4,
-        backgroundColor: colors.secondary,
+        // backgroundColor: colors.secondary,
     },
     item2: {
         flex: .2,
-        backgroundColor: 'dodgerblue',
+        // backgroundColor: 'dodgerblue',
         justifyContent: "center", //primary
         // alignItems: "center", //secondary
         // alignSelf: 'center',
@@ -65,18 +69,24 @@ const styles = StyleSheet.create({
     },
     vs_text: {
         alignSelf: 'center',
-        color: colors.white,
+        color: colors.yellow,
         fontSize: 21,
         fontWeight: "bold",
     },
     item3: {
         flex: .4,
-        backgroundColor: colors.secondary,
+        // backgroundColor: colors.secondary,
 
     },
     location_text: {
         alignSelf: 'center',
-        color: colors.white,
+        color: colors.black,
+        fontSize: 18,
+        fontWeight: "bold",
+    },
+    game_time: {
+        alignSelf: 'center',
+        color: colors.black,
         fontSize: 18,
         fontWeight: "bold",
     }

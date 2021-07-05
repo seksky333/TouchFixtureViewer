@@ -1,12 +1,19 @@
 export default {
-  primary: "#fc5c65",
-  secondary: "#4ecdc4",
-  black: "#000",
-  dark: "#0c0c0c",
+  primary: "#3459e6",
+  secondary: "#fff",
+  secondary_border: "#e6e6e6",
+  success: "#2fb380",
+  info: "#287bb5",
+  warning: "#f4bd61",
+  danger: "##da292e",
+  light: "#f8f9fa",
+  dark: "#212529",
+
+
+
+  black: "#212529",
   white: "#fff",
   medium: "#6e6969",
-  light: "#f8f4f4",
-  danger: "#ff5252",
   counterDown: "#e3414e",
   lightBlue: "#24aaf2",
   furnitureIcon: "#fc5c65",
@@ -15,5 +22,5 @@ export default {
   green: "#26de81",
   clothingIcon: "#2bcbba",
   sportIcon: "#24aaf2",
-  movieAndMusicIcon: "#4b7bec",
+  indigo: "#4b7bec",
 };
