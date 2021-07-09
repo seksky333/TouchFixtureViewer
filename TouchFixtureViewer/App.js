@@ -15,7 +15,6 @@ import AppNavigator from './app/navigation/AppNavigator';
 import { enableScreens } from 'react-native-screens';
 const momentTimeZone = require('moment-timezone');
 momentTimeZone.tz.setDefault('Australia/Melbourne');
-import FixtureScreen from "./app/screens/FixtureScreen";
 import colors from './app/config/colors';
 
 enableScreens();

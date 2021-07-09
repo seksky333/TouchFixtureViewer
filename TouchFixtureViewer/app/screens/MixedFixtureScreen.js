@@ -18,7 +18,7 @@ momentTimeZone.tz.setDefault('Australia/Melbourne');
 import Fixture from "../components/Fixture";
 
 
-function FixtureScreen(props) {
+function MixedFixtureScreen(props) {
   const [fixtures, setFixtures] = useState([]);
   const [curRound, setCurRound] = useState([]);
   const [fixtureDay, setFixtureDay] = useState([]);
@@ -31,7 +31,18 @@ function FixtureScreen(props) {
   const getFixtures = async () => {
     try {
       let response = await fetch(
-        'http://app-load-balancer-0-1822582057.ap-southeast-2.elb.amazonaws.com/api/v1/touch/games'
+        'http://app-load-balancer-0-1822582057.ap-southeast-2.elb.amazonaws.com/api/v1/touch/games', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          year: 2021,
+          competition: 'mixed-division-2',
+          season: 'Winter'
+        })
+      }
       );
       const returnJson = await response.json();
       const games = returnJson.games;
@@ -109,10 +120,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   topContainer: {
+    backgroundColor: colors.primary,
     alignItems: "center",
+    flex: .1,
   },
   contentContainer: {
-    flex: 1,
+    flex: .9,
     paddingLeft: 20,
     paddingLeft: 20,
     paddingRight: 20,
@@ -121,10 +134,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light,
   },
   fixtureInfo_text: {
-    color: colors.medium,
+    color: colors.white,
     fontSize: 18,
     fontWeight: "bold",
   }
 });
 
-export default FixtureScreen;
+export default MixedFixtureScreen;

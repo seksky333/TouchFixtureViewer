@@ -6,27 +6,34 @@ import Team from './Team';
 
 function Fixture({ fixture, onPress }) {
     return (
-        <TouchableOpacity onPress={onPress}>
-            <View style={styles.container}>
-                <View style={styles.upperContainer}>
-                    <View style={styles.item1}>
-                        <Team teamName={fixture.homeTeam.name} />
-                    </View>
-                    <View style={styles.item2}>
-                        <Text style={styles.vs_text}>VS</Text>
-                    </View>
-                    <View style={styles.item3}>
-                        <Team teamName={fixture.awayTeam.name} />
-                    </View>
-                </View>
-                <View style={styles.lowerContainer}>
-                    <Text style={styles.game_time}>{fixture.gameDateTimeObject.gameTime}</Text>
-                    <Text style={styles.location_text}>{fixture.gameVenue}</Text>
-                </View>
+        <View blurRadius={2} style={styles.background}>
+            <View style={styles.topContainer}>
+                <Text style={styles.fixtureInfo_text}>{fixtureDay} {fixtureDate}</Text>
+                <Text style={styles.fixtureInfo_text}>Round {curRound}</Text>
             </View>
+            <View style={styles.contentContainer}>
 
-
-        </TouchableOpacity>
+                <TouchableOpacity disabled={true} onPress={onPress}>
+                    <View style={styles.container}>
+                        <View style={styles.upperContainer}>
+                            <View style={styles.item1}>
+                                <Team teamName={fixture.homeTeam.name} />
+                            </View>
+                            <View style={styles.item2}>
+                                <Text style={styles.vs_text}>VS</Text>
+                            </View>
+                            <View style={styles.item3}>
+                                <Team teamName={fixture.awayTeam.name} />
+                            </View>
+                        </View>
+                        <View style={styles.lowerContainer}>
+                            <Text style={styles.game_time}>{fixture.gameDateTimeObject.gameTime}</Text>
+                            <Text style={styles.location_text}>{fixture.gameVenue}</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        </View>
     );
 }
 

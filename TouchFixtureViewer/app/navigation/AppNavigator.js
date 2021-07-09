@@ -2,7 +2,8 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Icon } from 'react-native-elements';
 // import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import FixtureScreen from "../screens/FixtureScreen";
+import MenFixtureScreen from "../screens/MenFixtureScreen";
+import MixedFixtureScreen from "../screens/MixedFixtureScreen";
 import colors from '../config/colors';
 
 const Tab = createBottomTabNavigator();
@@ -11,7 +12,7 @@ const AppNavigator = () => (
   <Tab.Navigator>
     <Tab.Screen
       name="Men Fixture"
-      component={FixtureScreen}
+      component={MenFixtureScreen}
       options={{
         tabBarIcon: ({ color, size }) => (
           <Icon
@@ -25,7 +26,7 @@ const AppNavigator = () => (
     />
     <Tab.Screen
       name="Mixed Fixture"
-      component={FixtureScreen}
+      component={MixedFixtureScreen}
       options={{
         tabBarIcon: ({ color, size }) => (
           <Icon
