@@ -12,23 +12,18 @@ import {
 import { color } from "react-native-reanimated";
 import colors from "../config/colors";
 import Screen from "../components/Screen";
+import FixturePage from "../components/FixturePage";
+import Swiper from 'react-native-swiper'
 const moment = require('moment');
 const momentTimeZone = require('moment-timezone');
 momentTimeZone.tz.setDefault('Australia/Melbourne');
-import Fixture from "../components/Fixture";
-import Swiper from 'react-native-swiper'
 
 
 function MenFixtureScreen(props) {
   const [allFixtures, setAllFixtures] = useState([]);
-  const [fixtures, setFixtures] = useState([]);
-  const [curRound, setCurRound] = useState([]);
-  const [fixtureDay, setFixtureDay] = useState([]);
-  const [fixtureDate, setFixtureDate] = useState([]);
+  const [curRoundNumber, setCurRoundNumber] = useState([]);
+  const [isReady, setIsReady] = useState(false)
   const curTime = moment();
-  // let curRound = 1;
-  // let fixtureDay = 'MONDAY';
-  // let fixtureDate = '5TH JULT';
 
   const getFixtures = async () => {
     try {
@@ -86,8 +81,8 @@ function MenFixtureScreen(props) {
         }
       }
     }
-    const curRoundNumber = Math.min(...roundNumber);
-    console.log(curRoundNumber);
+    setCurRoundNumber(Math.min(...roundNumber));
+    setIsReady(true);
 
 
 
@@ -103,64 +98,23 @@ function MenFixtureScreen(props) {
     // }
     // const curRoundNumber = Math.min(...roundNumber);
 
-
-
     //filter this week games
     for (const upGame of upcomingGames) {
       if (upGame.round == curRoundNumber) {
         thisWeekGames.push(upGame);
       }
     }
-
-    //display
-    const fixtureObj = thisWeekGames[0];
-    const fixtureDay = moment(fixtureObj.gameDateTimeObject.gameDateTime).format('dddd')
-    setCurRound(curRoundNumber);
-    setFixtureDay(fixtureDay);
-    setFixtureDate(fixtureObj.gameDateTimeObject.gameDate);
-    setFixtures(thisWeekGames);
   }
   useEffect(() => { getFixtures() }, []);
 
-  const renderFixtures = () => {
-
-
-    // for (let i = 0; i < allFixtures.length; i++) {
-    //   //count from 1 as first round starts from 1
-    //   const pos = i + 1;
-    //   const weeklyFixtures = allFixtures[i];
-
-    // return (allFixtures.map(weeklyFixtures => {
-    //   return (<View style={styles.slide1}>
-    //     <Screen>
-    //     </Screen>
-    //   </View>
-    //   )
-    // }))
-    // }
+  const renderFixturePage = () => {
+    console.log('called renderFixtures');
 
     return (allFixtures.map((weeklyFixtures, i) => {
       return (
-
-        <View key={i} style={styles.slide1}>
+        <View key={i} style={styles.slide}>
           <Screen>
-            <View blurRadius={2} style={styles.background}>
-              <View style={styles.topContainer}>
-                <Text style={styles.fixtureInfo_text}>{fixtureDay} {fixtureDate}</Text>
-                <Text style={styles.fixtureInfo_text}>Round {curRound}</Text>
-              </View>
-
-              <View style={styles.contentContainer}>
-
-                <FlatList
-                  data={weeklyFixtures.fixtures}
-                  keyExtractor={fixture => fixture._id.toString()}
-                  renderItem={({ item }) => (
-                    <Fixture fixture={item} />
-                  )}
-                />
-              </View>
-            </View>
+            < FixturePage weeklyFixtures={weeklyFixtures} />
           </Screen>
         </View>
       )
@@ -168,63 +122,15 @@ function MenFixtureScreen(props) {
   };
 
   return (
-
-    <Swiper key={allFixtures.length}>
-
-      {/* <Screen>
-        <View blurRadius={2} style={styles.background}>
-
-          <View style={styles.topContainer}>
-            <Text style={styles.fixtureInfo_text}>{fixtureDay} {fixtureDate}</Text>
-            <Text style={styles.fixtureInfo_text}>Round {curRound}</Text>
-          </View>
-
-          <View style={styles.contentContainer}>
-
-            <FlatList
-              data={fixtures}
-              keyExtractor={fixture => fixture._id.toString()}
-              renderItem={({ item }) => (
-                <Fixture fixture={item} />
-              )}
-            />
-          </View>
-        </View >
-
-      </Screen> */}
-
-      {renderFixtures()}
-
-
-      {/* <View style={styles.slide1}>
-        <Screen>
-          <View blurRadius={2} style={styles.background}>
-
-            <View style={styles.topContainer}>
-              <Text style={styles.fixtureInfo_text}>{fixtureDay} {fixtureDate}</Text>
-              <Text style={styles.fixtureInfo_text}>Round {curRound}</Text>
-            </View>
-
-            <View style={styles.contentContainer}>
-
-              <FlatList
-                data={fixtures}
-                keyExtractor={fixture => fixture._id.toString()}
-                renderItem={({ item }) => (
-                  <Fixture fixture={item} />
-                )}
-              />
-            </View>
-          </View >
-
-        </Screen>
-      </View>
-      <View style={styles.slide2}>
-      </View>
-      <View style={styles.slide3}>
-        <Text style={styles.text}>And simple</Text>
-      </View> */}
-    </Swiper>
+    <>
+      {isReady && (<Swiper index={curRoundNumber - 1} loop={false} key={allFixtures.length} activeDot={
+        <View
+          style={styles.activeDot}
+        />}
+      >
+        {renderFixturePage()}
+      </ Swiper>)}
+    </>
   );
 }
 
@@ -252,22 +158,20 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  slide1: {
+  slide: {
     flex: 1,
-    backgroundColor: '#9DD6EB'
+    backgroundColor: colors.primary
   },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5'
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9'
-  },
+  activeDot: {
+    backgroundColor: colors.primary,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginLeft: 3,
+    marginRight: 3,
+    marginTop: 3,
+    marginBottom: 3
+  }
 });
 
 export default MenFixtureScreen;

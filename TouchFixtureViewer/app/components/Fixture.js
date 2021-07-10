@@ -5,42 +5,41 @@ import colors from '../config/colors';
 import Team from './Team';
 
 function Fixture({ fixture, onPress }) {
-    return (
-        <View blurRadius={2} style={styles.background}>
-            <View style={styles.topContainer}>
-                <Text style={styles.fixtureInfo_text}>{fixtureDay} {fixtureDate}</Text>
-                <Text style={styles.fixtureInfo_text}>Round {curRound}</Text>
-            </View>
-            <View style={styles.contentContainer}>
+    console.log('fixture');
+    console.log(fixture);
 
-                <TouchableOpacity disabled={true} onPress={onPress}>
-                    <View style={styles.container}>
-                        <View style={styles.upperContainer}>
-                            <View style={styles.item1}>
-                                <Team teamName={fixture.homeTeam.name} />
-                            </View>
-                            <View style={styles.item2}>
-                                <Text style={styles.vs_text}>VS</Text>
-                            </View>
-                            <View style={styles.item3}>
-                                <Team teamName={fixture.awayTeam.name} />
-                            </View>
-                        </View>
-                        <View style={styles.lowerContainer}>
-                            <Text style={styles.game_time}>{fixture.gameDateTimeObject.gameTime}</Text>
-                            <Text style={styles.location_text}>{fixture.gameVenue}</Text>
-                        </View>
+    return (
+        <TouchableOpacity disabled={true} onPress={onPress}>
+            <View style={styles.container}>
+                <View style={styles.upperContainer}>
+                    <View style={styles.item1}>
+                        <Team teamName={fixture.homeTeam.name} />
                     </View>
-                </TouchableOpacity>
+                    <View style={styles.item2}>
+                        <Text style={styles.vs_text}>VS</Text>
+                    </View>
+                    <View style={styles.item3}>
+                        <Team teamName={fixture.awayTeam.name} />
+                    </View>
+                </View>
+                <View style={styles.midContainer}>
+
+                </View>
+                <View style={styles.lowerContainer}>
+                    <Text style={styles.game_time}>{fixture.gameDateTimeObject.gameTime}</Text>
+                    <Text style={styles.location_text}>{fixture.gameVenue}</Text>
+                </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
+
     container: {
         borderRadius: 25,
-        height: 200,
+        //game state not fulltime height = 200
+        height: 230,
         width: '100%',
         flex: 1,
         flexDirection: 'column',
@@ -52,13 +51,24 @@ const styles = StyleSheet.create({
 
     },
     upperContainer: {
-        height: 125,
+        height: 130,
         width: '100%',
-        flex: .7,
         flexDirection: 'row',
+        //game state not fulltime flex = .7
+        //full time = 0
+        // flex: .7,
+        
         // backgroundColor: 'blue',
     },
+    midContainer: {
+        backgroundColor: colors.primary,
+        //game state not fulltime flex = .5
+        //full time = .3
+        flex: .5,
+    },
     lowerContainer: {
+        //game state not fulltime flex = .5
+        //full time = .3
         flex: .3,
         // backgroundColor: 'green',
     },
